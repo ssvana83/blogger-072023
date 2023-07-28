@@ -2,9 +2,11 @@ class CommentsController < ApplicationController
   before_action :find_comment, only: [:show, :update, :destroy]
    
   def index #get "/comments" doesnt make sense so get "posts/:post_id/comments"
-    if params[:post_id] #is there a routes parameter?
+    if params[:post_id] #is there a routes parameter? (Do come froIm a nested route?)
       post = Post.find(params[:post_id])
       render json: post.comments
+    else #get "/comments" to pull from route that wants all comments to render
+      render json: Comment.all.to_json(include: :post)
     end
   end
 
@@ -26,6 +28,9 @@ class CommentsController < ApplicationController
       end
     end
   end
+  # the create! enables the removal of code that follows it (except for line 23)  because it indicates
+  # the raising of an exeption. Dont need the if/then, because it states that if it doesnt work
+  #  execption rescue, frontend here are the errors and then give back sserialized 
 
   def update #patch "comments/:id"
     if @comment&.update(comment_params)

@@ -1,20 +1,16 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  # root "articles#index"
-
-  # resources :posts
-  # whats really happening is you get the 5(6) default RESTful routes;
-  # get "/posts", to: "posts#index"
-  # get "/posts/:id", to: "posts#show"
-  # post  "/posts", to: "posts#create"
-  # patch "/posts/:id", to: "posts#update" similar to put "/posts/:id", to: "posts#update"
-  # delete "/posts/:id", to: "posts#destroy"
-
-  # custom route example
+  # custom route example for "/posts/:id/comments";
   get "/ordered-posts", to: "posts#ordered"
-  # "/posts/:id/comments"
+
+  # to build a custom route to get all comments to show; name of controller (comments)
+  # along with #action;
+  get "/comments", to: "comments#index"
+  # but now there are two routes that go to same place but need to so different
+  # things so we need to somehow differentiate. 
+  # 
+  
 
 # to nest comments inside the posts use a block like below;
 # only useful when indexed, not when updating or destroying 
