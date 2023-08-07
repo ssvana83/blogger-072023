@@ -6,7 +6,9 @@ class CommentsController < ApplicationController
       post = Post.find(params[:post_id])
       render json: post.comments
     else #get "/comments" to pull from route that wants all comments to render
-      render json: Comment.all.to_json(include: :post)
+      render json: Comment.all
+      # line above changed from line below once serializer was implemented 
+      # render json: Comment.all.to_json(include: :post)
     end
   end
 
