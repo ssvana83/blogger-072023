@@ -1,5 +1,6 @@
 class Post < ApplicationRecord
   has_many :comments #17 methods comments(getter), comments=(setter)
+  belongs_to :user
   validates :title, :content, :delete_time, presence: true
   validates :content, length: {in: (10..500)}
   validate :delete_time_in_the_future?

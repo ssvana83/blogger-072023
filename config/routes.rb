@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # custom route example for "/posts/:id/comments";
@@ -11,6 +12,13 @@ Rails.application.routes.draw do
   # things so we need to somehow differentiate. 
   # 
   
+  resources :users, only: [:update, :destroy]
+  post "/signup", to: "users#create"
+  get "/me", to: "users#show"
+  post "/login", to: "sessions#create"
+  delete "/logout", to: "sessions#destroy"
+
+
 
 # to nest comments inside the posts use a block like below;
 # only useful when indexed, not when updating or destroying 

@@ -87,6 +87,8 @@ GEM
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     jsonapi-renderer (0.2.2)
+    jsonapi-serializer (2.2.0)
+      activesupport (>= 4.2)
     loofah (2.21.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -152,6 +154,7 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rake (13.0.6)
+    spring (4.1.1)
     sqlite3 (1.6.3-arm64-darwin)
     thor (1.2.2)
     timeout (0.4.0)
@@ -166,13 +169,15 @@ PLATFORMS
   arm64-darwin-21
 
 DEPENDENCIES
-  active_model_serializers
+  active_model_serializers (~> 0.10.0)
   bcrypt (~> 3.1.7)
   bootsnap
+  jsonapi-serializer
   pry
   puma (~> 5.0)
   rack-cors
   rails (~> 7.0.6)
+  spring
   sqlite3 (~> 1.4)
   tzinfo-data
 
