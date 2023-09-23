@@ -1,25 +1,27 @@
 class Post < ApplicationRecord
-  has_many :comments #17 methods comments(getter), comments=(setter)
+  has_many :comments 
   belongs_to :user
   validates :title, :content, :delete_time, presence: true
   validates :content, length: {in: (10..500)}
   validate :delete_time_in_the_future?
 
   before_save :format_title #model filter example call
+
+
   # scope method: its a macro that helps create class methods (not used with instance methods) used for queries.
   # scope replaces def and self. from methods below
   # scope :most_comments, -> {self.joins(:comments).group(:post_id).order("COUNT(posts.id) DESC").limit(1)}
   scope :sort_desc_by_title, -> {self.order(title: :desc)}
   
 
-  # model filter example method
+  # model filter method example;
   def format_title
     if self.title[0] != self.title[0].upcase
-      #split at every word self.title.split("")
       self.title = self.title.capitalize
     end
   end
 
+  # this is a custom validation that is called above as validate: delete_time_in_the_future
   def delete_time_in_the_future?
     if !!self.delete_time && self.delete_time <= DateTime.current
       self.errors.add(:delete_time, :time_confusion, message: "The delete time cant be in the past")

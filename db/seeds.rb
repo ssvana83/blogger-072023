@@ -19,5 +19,6 @@ p1.comments.create(rating: 3, content: "I wish you suggested more vegetarian opt
 # # Comment.create(rating: 8, content: "I have been dying to see Luke Bryan live!", post: p2) instead write;
 p2.comments.create(rating: 6, content: "I have been dying to see Luke Bryan live!")
 p2.comments.create(rating: 3, content: "Bummer, I wont be there when The Dixie Chicks play!")
+# above is saying, "hey for the post p2, in the comments array(assocaition method),create a new comment"
 
 # Comment.create(rating: 6, content: "Cant wait to try the BBQ place you mentioned!", user_id: u.id, post: p1.id)

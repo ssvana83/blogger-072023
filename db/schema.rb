@@ -40,5 +40,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_07_164921) do
   end
 
   add_foreign_key "comments", "posts", on_delete: :cascade
+  # on delete, cascade deleting to all the nested resources as well
   add_foreign_key "posts", "users"
 end

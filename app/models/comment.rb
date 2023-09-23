@@ -6,6 +6,7 @@ class Comment < ApplicationRecord
   # take this part out to make it a custom validation instead:
   # inclusion: {in: %w(dangit fudge darnit), message: "Thats not nice, you cant say: #{@@bad_words.join(", ")}"}
   validate :clean_words_check
+  
 
   def clean_words_check
     bad_words = %w(dangit fudge shoot)
