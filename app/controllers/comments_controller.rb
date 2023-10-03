@@ -1,11 +1,11 @@
 class CommentsController < ApplicationController
   before_action :find_comment, only: [:show, :update, :destroy]
    
-  def index 
-    if params[:post_id] 
+  def index #get "/comments" but this makes more sense: #get "posts/:post_id/comments"
+    if params[:post_id] #is there a post parameter? if so, we are in a nested route
         post = Post.find(params[:post_id])
-          render json: post.comments
-    else 
+        render json: post.comments
+    else # get "/comments"
       render json: CommentSerializer.new(Comment.all).serializable_hash
     end
   end
@@ -15,11 +15,11 @@ class CommentsController < ApplicationController
   end
 
   def create #post "/comments"
-    if params[:post_id] #is there a routes parameter?
-      post = Post.find(params[:post_id])
-      @comment = post.comments.create!(comment_params)
+      if params[:post_id] #is there a routes parameter?
+        post = Post.find(params[:post_id])
+        @comment = post.comments.create!(comment_params)
         render json: serialized_comment, status: 201
-    end
+      end
   end
   # the create! enables the removal of code that follows it (except for line 23)  because it indicates
   # the raising of an exeption. Dont need the if/then, because it states that if it doesnt work
@@ -55,3 +55,11 @@ class CommentsController < ApplicationController
   end
 
 end
+
+
+# @comment = post.comments.create!(comment_params)
+# Explanation; On the post we found, get the list of comments, create a new comment. This will create but also
+# establish the relationship
+# "post"(outer/independant resource) "."(apply) "comments"(dependant/inner resource-pluralized)
+# .create!(shows associations)
+# create! to raise execption so that you dont need additional if/else

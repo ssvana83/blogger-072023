@@ -1,16 +1,7 @@
 Rails.application.routes.draw do
   
-  
-
-  # custom route example for "/posts/:id/comments";
-  get "/ordered-posts", to: "posts#ordered"
-
-  # to build a custom route to get all comments to show; name of controller (comments)
-  # along with #action;
-  get "/comments", to: "comments#index"
-  # but now there are two routes that go to same place but need to so different
-  # things so we need to somehow differentiate. 
-  # 
+  get "/ordered-posts", to: "posts#ordered" # custom route example for "/posts/:id/comments"
+  get "/comments", to: "comments#index" # custom route has task(get), name of controller(/comments), and action(#index) 
   
   resources :users, only: [:update, :destroy]
   post "/signup", to: "users#create"
@@ -18,14 +9,21 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
 
+  resources :comments, only: [:index]
 
-
-# to nest comments inside the posts use a block like below;
-# only useful when indexed, not when updating or destroying 
-# rails is opinionated so it has a shallow that will only create routes that are needed
-# if shallow isnt used you would need to specify, only: [:index, :create, :] etc etc
-  "/posts/:id/comments"
-  resources :posts do
-    resources :comments, shallow: true
+  resources :posts do  #use a block to nest comments inside posts; "/posts/:id/comments"
+    resources :comments, shallow: true #shallow-shortcut, only creates routes neeeded (dont need to specify only: [:index, :create] etc etc)
   end
+
 end
+
+#  RESTful routes created manually;
+#  get "/posts", to: "posts#index" (display all posts)
+#  get "/posts/:id", to: "posts#show" (a specific/or one post)
+#  post "/posts", to: "posts#create" (to post)
+#  patch "/posts/:id", to: "posts#update" (to edit)
+#  put "/posts/:id", to: "posts#update" (to edit)
+#  delete "/posts/:id", to: "posts#destroy" (to delete)
+
+# resources is a macro that creates all the default routes for us
+# you can nest routes by putting comments in posts

@@ -1,12 +1,11 @@
 class PostsController < ApplicationController
-  
   before_action :find_post, only: [:show, :update, :destroy]
 
   def index #same as get "/posts"
     render json: PostSerializer.new(Post.all).serializable_hash
   end
 
-  def ordered #this is a custom route
+  def ordered #this is a custom route that calls on route in route.rb
     render json: Post.sort_desc_by_title
   end
 
@@ -30,15 +29,15 @@ class PostsController < ApplicationController
 
   def destroy #delete "/posts/:id"
     if current_user.posts.include?(@post)
-    if @post&.destroy
-      render json: {message: "deleted post!"}
-    else
-      render json: {error: @post.errors.full_messages.to_sentence}
+        if @post&.destroy
+          render json: {message: "deleted post!"}
+          else
+          render json: {error: @post.errors.full_messages.to_sentence}
+        end
+      else
+      no_route
     end
-  else
-    no_route
   end
-end
 
   private
   def find_post
