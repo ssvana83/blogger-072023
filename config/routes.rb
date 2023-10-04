@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
-  scope :api do
-    scope :v1 do
+  # scope :api do
+  #   scope :v1 do
   get "/ordered-posts", to: "posts#ordered" # custom route example for "/posts/:id/comments"
   get "/comments", to: "comments#index" # custom route has task(get), name of controller(/comments), and action(#index) 
   
