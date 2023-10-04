@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:email])
     if user&.authenticate(params[:password])
       session[:user_id] = user.id #this line is responsible for signing someone in. store unique info about user in session
-      render json: UserSerializer.new(user)
+      render json: UserSerializer.new(user), status: :accepted
     else
       render json: {error: "Not authorized"}, status: :unauthorized
     end
@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session.delete(:user_id)
-    head :no_content
+    headers :no_content
   end
 
 end
