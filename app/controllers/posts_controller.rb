@@ -4,6 +4,7 @@ class PostsController < ApplicationController
   def index #same as get "/posts"
     render json: PostSerializer.new(Post.all).serializable_hash
   end
+  # 
 
   def ordered #this is a custom route that calls on route in route.rb
     render json: Post.sort_desc_by_title
