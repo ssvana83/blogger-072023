@@ -4,6 +4,8 @@ class CreateComments < ActiveRecord::Migration[7.0]
       t.references :post, null: false, foreign_key: {on_delete: :cascade}
       t.text :content
       t.integer :rating
+      t.references :user, null: false, foreign_key: {on_delete: :cascade}
+
 
       t.timestamps
     end

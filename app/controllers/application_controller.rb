@@ -4,7 +4,7 @@ class ApplicationController < ActionController::API
   include ActionController::Cookies 
   rescue_from ActiveRecord::RecordNotFound, with: :no_route
   rescue_from ActiveRecord::RecordInvalid, with: :invalid_record
-  before_action :authorized! #will try to run on every action of every controller
+#   before_action :authorized! #will try to run on every action of every controller
 
   wrap_parameters format: [] #to prevent nested object in params
 #  Rails will automatically try to package your parameters
