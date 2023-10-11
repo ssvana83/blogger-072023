@@ -1,6 +1,7 @@
 class PostSerializer < ActiveModel::Serializer
   # include JSONAPI::Serializer
-  attributes :title, :content, :media_url, :delete_time, :id
+  attributes :title, :content, :media_url, :id
+  # :delete_time was taken out from above line
   # has_many :comments, serializer: CommentSerializer
 # this points to what serializer is used 
 

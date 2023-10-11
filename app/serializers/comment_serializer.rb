@@ -3,9 +3,9 @@ class CommentSerializer < ActiveModel::Serializer
   attributes :content, :rating, :created_at 
   belongs_to :post
   
-  attribute :rating do |object|
-    "Rating is #{object.rating}/10"
-  end
+  # attribute :rating do |object|
+  #   "Rating is #{object.rating}/10"
+  # end
   
   # below is another syntax for noting serializer instead of belongs_to line
   # attribute :post do |object|
