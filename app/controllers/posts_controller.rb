@@ -16,7 +16,7 @@ class PostsController < ApplicationController
   end
 
   def create #post "/posts"
-    @post = Post.create!(post_params)
+    @post = current_user.posts.create!(post_params)
       render json: serialized_post, status: 201
   end
 
