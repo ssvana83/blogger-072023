@@ -1,8 +1,9 @@
 class PostsController < ApplicationController
+  skip_before_action :authorized!, only: [:index]
   before_action :find_post, only: [:show, :update, :destroy]
 
   def index #same as get "/posts"
-    render json: PostSerializer.new(Post.all).serializable_hash
+    render json: PostSerializer.new(Post.preload(:comments)).serializable_hash
   end
   # 
 
