@@ -10,7 +10,6 @@ class SessionsController < ApplicationController
     if user&.authenticate(params[:password])
       session[:user_id] = user.id #this line is responsible for signing someone in. store unique info about user in session
       render json: user, status: :accepted
-      # ???? should I change the line above to; render json: user, status: :created???
     else
       render json: {error: "Not authorized"}, status: :unauthorized
     end
@@ -28,8 +27,5 @@ class SessionsController < ApplicationController
     params.permit(:email, :password)
   end
 
-  # why are my params being blocked?
-  # <ActionController::Parameters {"controller"=>"sessions", "action"=>"create"} permitted: false>
-  # chanhged line 7 from User.find_by(parms[:email]) to (session_params)
 
 end

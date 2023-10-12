@@ -31,9 +31,6 @@ class ApplicationController < ActionController::API
         render json: {error: invalid.record.errors.full_messages.to_sentence}, status: :unprocessable_entity
     end
 
-    # def no_route
-    #     render json: {error: "Not authorized"}, status: :unauthorized unless session.include?(:user_id)
-    # end
     def no_route
         render json: {error: "Not authorized"}, status: :unauthorized unless session.include?(:user_id)
     end
