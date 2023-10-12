@@ -8,8 +8,9 @@
 
 u1= User.create(username: 'stacy', email: 'stacy@gmail.com', password: "Password")
 u2= User.create(username: 'natalie', email: 'natalie@gmail.com', password: "Password")
-u2= User.second 
+
 u1 = User.first
+u2= User.second 
 
 p1 = Post.create(user_id: u1.id, title: "Best restaurants in Nashville", content: "The must visit places to eat in my opinion" )
 p2 = Post.create(user_id: u2.id, title: "Concerts coming to Nashville in August", content: "New concert schedule was posted and it looks like a good month to visit!" )
