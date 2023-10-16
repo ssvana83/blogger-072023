@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   # skip_before_action :authorized!, only: [:index]
   before_action :find_post, only: [:show, :update, :destroy]
+  before_action :authenticate_user, only: [:create]
 
   def index #same as get "/posts"
     render json: Post.all
