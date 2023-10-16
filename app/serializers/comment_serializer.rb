@@ -1,7 +1,7 @@
 class CommentSerializer < ActiveModel::Serializer
   # include JSONAPI::Serializer
   attributes :content, :rating, :created_at 
-  belongs_to :post
+  # belongs_to :post
   
   # attribute :rating do |object|
   #   "Rating is #{object.rating}/10"

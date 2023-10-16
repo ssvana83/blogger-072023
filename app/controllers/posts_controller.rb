@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   # skip_before_action :authorized!, only: [:index]
   before_action :find_post, only: [:show, :update, :destroy]
-  before_action :authenticate_user, only: [:create]
+  before_action :authorized!, only: [:create]
 
   def index #same as get "/posts"
     render json: Post.all
@@ -16,8 +16,10 @@ class PostsController < ApplicationController
   end
 
   def create #post "/posts"
-    @post = current_user.posts.create!(post_params)
-      render json: serialized_post, status: 201
+    
+    @post = @current_user.posts.create!(post_params)
+      render json: @post
+      # serialized_post, status: 201
   end
 
   def update #patch "posts/:id"
@@ -51,7 +53,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :content, :media_url, :delete_time)
+    params.permit(:title, :content, :media_url)
   end
 
 end
