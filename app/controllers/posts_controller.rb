@@ -3,17 +3,8 @@ class PostsController < ApplicationController
   before_action :find_post, only: [:show, :update, :destroy]
 
   def index #same as get "/posts"
-    puts "index is working"
     render json: Post.all
   end
-  # 
-  # above used to be this;
-  # def index 
-  #   render json: PostSerializer.new(Post.preload(:comments)).serializable_hash
-  # end
-
-  # can also have this line instead of above
-  # render json: Post.preload(:comments).serializable_hash
 
   def ordered #this is a custom route that calls on route in route.rb
     render json: Post.sort_desc_by_title
