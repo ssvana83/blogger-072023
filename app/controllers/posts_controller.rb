@@ -7,36 +7,41 @@ class PostsController < ApplicationController
     render json: Post.all
   end
 
-  def ordered #this is a custom route that calls on route in route.rb
-    render json: Post.sort_desc_by_title
-  end
-
   def show #show route same as get "/posts/:id" do
     render json: serialized_post
   end
 
   def create #post "/posts"
-    
     @post = @current_user.posts.create!(post_params)
-      render json: @post
-      # serialized_post, status: 201
+    render json: @post
   end
 
   def update #patch "posts/:id"
     if current_user.posts.include?(@post)
-      @post&.update!(post_params)
+      if @post.update(post_params)
       render json: serialized_post
     else
-      no_route
+      render json: { error: @post.errors.full_messages.to_sentence }, status: :unprocessable_entity
+      # no_route
     end
+  else
+    no_route
   end
+rescue ActiveRecord::RecordNotFound => e
+  render json: { error: "Post not found" }, status: :not_found
+rescue ActiveRecord::RecordNotUnique => e
+  render json: { error: "Duplicate record found" }, status: :unprocessable_entity
+rescue StandardError => e
+  render json: { error: "An error occurred" }, status: :internal_server_error
+end
 
   def destroy #delete "/posts/:id"
     if current_user.posts.include?(@post)
         if @post&.destroy
-          render json: {message: "deleted post!"}
+          head :no_content
+          # render json: {message: "deleted post!"}
           else
-          render json: {error: @post.errors.full_messages.to_sentence}
+          render json: {error: @post.errors.full_messages.to_sentence}, status: :unprocessable_entity
         end
       else
       no_route

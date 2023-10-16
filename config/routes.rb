@@ -2,9 +2,9 @@ Rails.application.routes.draw do
   
   scope :api do
     scope :v1 do
-      get "/ordered-posts", to: "posts#ordered" # custom route example for "/posts/:id/comments"
+      # get "/ordered-posts", to: "posts#ordered" # custom route example for "/posts/:id/comments"
       get "/comments", to: "comments#index" # custom route has task(get), name of controller(/comments), and action(#index) 
-      # get "/posts", to: "posts#index" 
+      get "/posts", to: "posts#index" 
   
       resources :users, only: [:update, :destroy]
       post "/signup", to: "users#create"
@@ -16,9 +16,9 @@ Rails.application.routes.draw do
       resources :posts, only: [:index, :create]
       
 
-      # resources :posts do  #use a block to nest comments inside posts; "/posts/:id/comments"
-      #     resources :comments, shallow: true #shallow-shortcut, only creates routes neeeded (dont need to specify only: [:index, :create] etc etc)
-      # end
+      resources :posts do  #use a block to nest comments inside posts; "/posts/:id/comments"
+          resources :comments, shallow: true #shallow-shortcut, only creates routes neeeded (dont need to specify only: [:index, :create] etc etc)
+      end
     end
   end
 end

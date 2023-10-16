@@ -2,8 +2,6 @@ class SessionsController < ApplicationController
   # skip_before_action :authorized!, only: [:create]
 
   def create
-    # find_by email means we have to resucue with if/else condition. If user&.(if user isnt falsey)
-    # if user isnt nil or falsey then invoke .authenticate method in it
     
     user = User.find_by(email: params[:email])
   
