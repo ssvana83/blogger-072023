@@ -4,7 +4,7 @@ class ApplicationController < ActionController::API
   include ActionController::Cookies 
   rescue_from ActiveRecord::RecordNotFound, with: :no_route
   rescue_from ActiveRecord::RecordInvalid, with: :invalid_record
-#   before_action :authorized! #will try to run on every action of every controller
+  before_action :authorized! #will try to run on every action of every controller
 
   wrap_parameters format: [] #to prevent nested object in params
 #  Rails will automatically try to package your parameters
@@ -14,17 +14,18 @@ class ApplicationController < ActionController::API
 
   private
 
-    def current_user
-        puts "I'm the current user"
-        @current_user ||= User.find(session[:user_id]) if session[:user_id]
-        puts "The curretn user is #{@current_user}"
-    end
+    # def current_user
+    #     puts "I'm the current user"
+    #     @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    #     puts "The curretn user is #{@current_user}"
+    # end
     # this is to find who the current user is
     # ||= (memoization). Minimizes how many times it needs to go into the database. if not used 
     #  the problem is it invokes .find multiple times.
 
     def authorized!
-        no_route unless current_user
+        @current_user ||= User.find(session[:user_id]) if session[:user_id]
+        no_route unless @current_user
     end
 
     def invalid_record(invalid)

@@ -3,7 +3,6 @@ class Post < ApplicationRecord
   belongs_to :user
   validates :title, :content, presence: true # validates used for custom validations
   validates :content, length: {in: (10..500)}
-  # validate :delete_time_in_the_future? # this is a validation call
   before_save :format_title # this is a model filter call 
   scope :sort_desc_by_title, -> {self.order(title: :desc)} # this is a macro that helps create class methods used for queries
   # without using def and self. like in some methods below. Your controller leverages this.
@@ -13,18 +12,6 @@ class Post < ApplicationRecord
       self.title = self.title.capitalize
     end
   end
-
-  # def delete_time_in_the_future?  # this is a validation method
-  #   if !!self.delete_time && self.delete_time <= DateTime.current
-  #     self.errors.add(:delete_time, :time_confusion, message: "The delete time cant be in the past")
-  #   end
-  # end
-
-  # def automatic_destroy # can use a schedule for this later, not being used yet*
-  #   if self.delete_time <= DateTime.current
-  #     self.destroy
-  #   end
-  # end
 
   def self.most_comments
     self.preload(:comments).all.max_by{|p| p.comments.length}
@@ -40,3 +27,18 @@ end
 # self(class)joins comments table and then once we have all the data (since interjoin between post/comments)
 # lets regroup by post id. then order based on the count of the comments on each group in descending order
 # .limit gives object, without it it gives AR relation
+
+
+# validate :delete_time_in_the_future? # this is a validation call
+
+# def delete_time_in_the_future?  # this is a validation method
+  #   if !!self.delete_time && self.delete_time <= DateTime.current
+  #     self.errors.add(:delete_time, :time_confusion, message: "The delete time cant be in the past")
+  #   end
+  # end
+
+  # def automatic_destroy # can use a schedule for this later, not being used yet*
+  #   if self.delete_time <= DateTime.current
+  #     self.destroy
+  #   end
+  # end

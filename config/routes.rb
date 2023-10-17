@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       delete "/logout", to: "sessions#destroy"
 
       resources :comments, only: [:index]
-      resources :posts, only: [:index, :create]
+      resources :posts, only: [:index, :create, :update]
       
 
       resources :posts do  #use a block to nest comments inside posts; "/posts/:id/comments"
