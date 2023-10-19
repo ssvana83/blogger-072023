@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
       resources :comments, only: [:index]
       resources :posts, only: [:index, :create, :update]
+# change above to resources :posts, only: [:destroy] ??
+      
       
 
       resources :posts do  #use a block to nest comments inside posts; "/posts/:id/comments"
