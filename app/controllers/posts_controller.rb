@@ -40,15 +40,21 @@ class PostsController < ApplicationController
   #   end
   # end
 
+  # def destroy
+  #     @current_user.posts.include?(@post)
+  #     if @current_user
+  #       @current_user.destroy
+  #       head :no_content
+  #     else
+  #       "Couldnt find post"
+  #     end
+  # end
+
   def destroy
-      @current_user.posts.include?(@post)
-      if @current_user
-        @current_user.destroy
-        head :no_content
-      else
-        "Couldnt find post"
-      end
+    @post = Post.find(params[:id])
+    @post.destroy
   end
+
 
   private
   def find_post
