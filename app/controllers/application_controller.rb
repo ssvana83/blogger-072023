@@ -1,6 +1,4 @@
-class ApplicationController < ActionController::API
-#   include ActionController::Serialization 
-  # so that in API mode it is told more about how to execute 
+class ApplicationController < ActionController::API 
   include ActionController::Cookies 
   rescue_from ActiveRecord::RecordNotFound, with: :no_route
   rescue_from ActiveRecord::RecordInvalid, with: :invalid_record
