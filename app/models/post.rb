@@ -29,16 +29,3 @@ end
 # .limit gives object, without it it gives AR relation
 
 
-# validate :delete_time_in_the_future? # this is a validation call
-
-# def delete_time_in_the_future?  # this is a validation method
-  #   if !!self.delete_time && self.delete_time <= DateTime.current
-  #     self.errors.add(:delete_time, :time_confusion, message: "The delete time cant be in the past")
-  #   end
-  # end
-
-  # def automatic_destroy # can use a schedule for this later, not being used yet*
-  #   if self.delete_time <= DateTime.current
-  #     self.destroy
-  #   end
-  # end

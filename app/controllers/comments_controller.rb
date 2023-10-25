@@ -18,12 +18,18 @@ class CommentsController < ApplicationController
       if params[:post_id] #is there a routes parameter?
         post = Post.find(params[:post_id])
         @comment = post.comments.create!(comment_params)
-        render json: serialized_comment, status: 201
+        # render json: serialized_comment, status: 201
+        render json: @comment
       end
   end
-  # the create! enables the removal of code that follows it (except for line 23)  because it indicates
-  # the raising of an exeption. Dont need the if/then, because it states that if it doesnt work
-  #  execption rescue, frontend here are the errors and then give back sserialized 
+
+  # def create #post "/posts"
+  #   if params[:post_id]
+  #     post = Post.find(params[:post_id])
+  #     @comment = post.comments.create!(comment_params)
+  #     render json: @comment
+  # end
+   
 
   def update #patch "comments/:id"
     if @comment&.update(comment_params)

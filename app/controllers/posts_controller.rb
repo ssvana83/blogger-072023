@@ -1,7 +1,6 @@
 class PostsController < ApplicationController
   skip_before_action :authorized!, only: [:index]
   before_action :find_post, only: [:show, :update, :destroy]
-  # before_action :authorized!, only: [:create]
 
   def index #same as get "/posts"
     render json: Post.all
@@ -28,28 +27,6 @@ class PostsController < ApplicationController
     end
   end
 
-  # def destroy #delete "/posts/:id"
-  #   if @current_user.posts.include?(@post)
-  #       if @post&.destroy
-  #         head :no_content
-  #         else
-  #         render json: {error: @post.errors.full_messages.to_sentence}, status: :unprocessable_entity
-  #       end
-  #     else
-  #     no_route
-  #   end
-  # end
-
-  # def destroy
-  #     @current_user.posts.include?(@post)
-  #     if @current_user
-  #       @current_user.destroy
-  #       head :no_content
-  #     else
-  #       "Couldnt find post"
-  #     end
-  # end
-
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
@@ -60,10 +37,6 @@ class PostsController < ApplicationController
   def find_post
     @post = Post.find(params[:id])
   end
-
-  # def serialized_post
-  #   @post.to_json(include: :comments)
-  # end
 
   def post_params
     params.permit(:title, :content, :media_url)
