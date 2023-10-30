@@ -1,36 +1,30 @@
 class CommentsController < ApplicationController
   before_action :find_comment, only: [:show, :update, :destroy]
    
-  def index #get "/comments" but this makes more sense: #get "posts/:post_id/comments"
-    if params[:post_id] #is there a post parameter? if so, we are in a nested route
+  def index                              # get "/comments" but this makes more sense: #get "posts/:post_id/comments"
+    if params[:post_id]                  # is there a post parameter? if so, we are in a nested route
         post = Post.find(params[:post_id])
         render json: post.comments
-    else # get "/comments"
+    else                                 # get "/comments"
       render json: Comment.all
     end
   end
 
-  def show #show route same as get "/comments/:id" do
-    render json: serialized_comment
+  def show                              # show route same as get "/comments/:id" do
+    render json: @comment
   end
+
 
   def create #post "/comments"
       if params[:post_id] #is there a routes parameter?
         post = Post.find(params[:post_id])
-        @comment = post.comments.create!(comment_params)
+        @comment = post.comments.create!(comment_params)    
         # render json: serialized_comment, status: 201
-        render json: @comment
+        render json: @comment, status: 201
       end
   end
 
-  # def create #post "/posts"
-  #   if params[:post_id]
-  #     post = Post.find(params[:post_id])
-  #     @comment = post.comments.create!(comment_params)
-  #     render json: @comment
-  # end
    
-
   def update #patch "comments/:id"
     if @comment&.update(comment_params)
       render json: serialized_comment
@@ -39,9 +33,9 @@ class CommentsController < ApplicationController
     end
   end
 
-  def destroy #delete "/comments/:id"
+  def destroy                                                     #delete "/comments/:id"
     if @comment&.destroy
-      render json: {message: "deleted post!"}
+      render json: {message: "Comment Deleted!"}
     else
       render json: {error: @comment.errors.full_messages.to_sentence}
     end
@@ -57,7 +51,7 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:rating, :content, :post_id)
+    params.permit(:rating, :content, :post_id, :user_id)
   end
 
 end

@@ -3,7 +3,6 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(email: params[:email])
-  
     if user&.authenticate(params[:password])
       session[:user_id] = user.id #this line is responsible for signing someone in. store unique info about user in session
       render json: user, status: :accepted
@@ -17,7 +16,7 @@ class SessionsController < ApplicationController
     head :no_content
   end
 
-
+  
   private
 
   def session_params
