@@ -1,6 +1,8 @@
 class Post < ApplicationRecord
   has_many :comments 
+  has_many :users, through: :comments
   belongs_to :user
+  
   validates :title, :content, presence: true # validates used for custom validations
   validates :content, length: {in: (10..500)}
   before_save :format_title # this is a model filter call 

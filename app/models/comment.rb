@@ -1,6 +1,7 @@
 class Comment < ApplicationRecord
   # @@bad_words = %w(dangit fudge darnit) remove this when changing to custom validation
   belongs_to :post #will auto validate post_id existance
+  belongs_to :user 
   validates :rating, presence: true, numericality: {less_than_or_equal_to: 10, greater_than_or_equal_to: 1}
   validates :content, presence: true, length: {in: 2..300}
   # take this part out to make it a custom validation instead:
